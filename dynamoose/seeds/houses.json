@@ -1,0 +1,99 @@
+[
+  {
+    "id": "00000000-0000-4000-8000-000000000001",
+    "address": {
+      "street": "123 Main Street",
+      "city": "Anytown",
+      "state": "CA",
+      "zipCode": "12345",
+      "country": "USA"
+    },
+    "constructionYear": 1985,
+    "squareFootage": 2500,
+    "bedrooms": 4,
+    "bathrooms": 3,
+    "floors": 2,
+    "propertyType": "Single Family",
+    "rooms": [
+      {
+        "id": "00000000-0000-4000-8000-000000000101",
+        "name": "Living Room",
+        "type": "Living",
+        "floor": 1,
+        "dimensions": {
+          "length": 20,
+          "width": 15,
+          "height": 8,
+          "area": 300,
+          "unit": "ft"
+        },
+        "windows": 2,
+        "furniture": [
+          {
+            "id": "00000000-0000-4000-8000-000000000201",
+            "name": "Sofa",
+            "type": "Seating",
+            "dimensions": {
+              "length": 84,
+              "width": 36,
+              "height": 32,
+              "unit": "inch"
+            },
+            "color": "Beige",
+            "material": "Fabric",
+            "condition": "Good",
+            "parts": [
+              {
+                "id": "00000000-0000-4000-8000-000000000301",
+                "name": "Frame",
+                "material": {
+                  "id": "00000000-0000-4000-8000-000000000401",
+                  "name": "Oak",
+                  "type": "Wood",
+                  "color": "Brown",
+                  "recyclable": true,
+                  "strength": 8,
+                  "weight": 12
+                },
+                "dimensions": {
+                  "length": 84,
+                  "width": 36,
+                  "height": 5,
+                  "unit": "inch"
+                },
+                "weight": 15,
+                "condition": "Good"
+              }
+            ]
+          }
+        ],
+        "wallColor": "Eggshell",
+        "flooringType": "Hardwood",
+        "ceilingType": "Flat",
+        "lighting": [
+          {
+            "type": "Ceiling Light",
+            "quantity": 1
+          }
+        ]
+      }
+    ],
+    "exterior": {
+      "material": "Brick",
+      "color": "Red",
+      "roofType": "Shingle",
+      "condition": "Good"
+    },
+    "utilities": {
+      "heating": "Forced Air",
+      "cooling": "Central AC",
+      "waterHeater": "Gas",
+      "electricalSystem": "200 Amp"
+    },
+    "features": [
+      "Fireplace",
+      "Deck",
+      "Garage"
+    ]
+  }
+]

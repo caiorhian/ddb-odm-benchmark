@@ -1,0 +1,8 @@
+{
+  "queryStringParameters": {
+    "count": "5",
+    "iterations": "10",
+    "shouldReturnBody": "false",
+    "prepareBenchmark": "true"
+  }
+}
