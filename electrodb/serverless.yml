@@ -1,0 +1,86 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: caiorhianpersonal
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: ddb-odm-benchmark
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: electrodb
+
+plugins:
+  - serverless-dynamodb
+  - serverless-offline
+
+custom:
+  serverless-dynamodb:
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+      heapInitial: 200m
+      heapMax: 4g
+      docker: true
+      noStart: true
+    stages:
+      - dev
+      - local
+      - test
+      - caio
+  serverless-offline:
+    useChildProcesses: true
+    noTimeout: true
+    httpPort: 3010
+    websocketPort: 3011
+    lambdaPort: 3012
+    noPrependStageInUrl: true
+    prefix: electrodb
+    useWorkerThreads: true
+    reloadHandler: true
+    watch:
+      - "src/**/*.ts"
+      - "serverless.yml"
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+  environment:
+    HOUSES_TABLE: ${self:service}-${sls:stage}-house
+    IS_OFFLINE: ${self:custom.serverlessOffline.isOffline, false}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+            - dynamodb:BatchGetItem
+            - dynamodb:BatchWriteItem
+          Resource:
+            - !GetAtt HousesTable.Arn
+
+functions:
+  benchmark:
+    name: ${self:service}-${sls:stage}-benchmark
+    handler: src/handler.benchmark
+    events:
+      - http:
+          path: /benchmark
+          method: get
+          cors: true
+
+resources:
+  Resources:
+    HousesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.HOUSES_TABLE}
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
