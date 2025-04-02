@@ -22,11 +22,8 @@ export class HouseService {
     return houses;
   }
 
-  public async benchmark(
-    count: number,
-    iterations: number = 1
-  ): Promise<House[]> {
-    const seedPath = path.join(__dirname, "houses_seed.json");
+  public async benchmark(iterations: number = 1): Promise<House[]> {
+    const seedPath = path.join(__dirname, "../../../houses_seed.json");
     const fileContent = fs.readFileSync(seedPath, "utf-8");
     const houses: House[] = HouseSchema.array().parse(JSON.parse(fileContent));
     const houseRepo = new HouseRepository();
@@ -50,7 +47,10 @@ export class HouseService {
           ...room,
           furniture: room.furniture.map((furniture) => ({
             ...furniture,
-            parts: [...furniture.parts, createFixture(FurniturePartSchema)],
+            parts: furniture.parts.map((part) => ({
+              ...part,
+              notes: `Notes generated at ${new Date().toISOString()}`,
+            })),
           })),
         }));
         await houseRepo.update(house.id, house);

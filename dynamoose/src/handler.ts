@@ -24,7 +24,7 @@ export const benchmark = async (
       houseService.prepareBenchmark(count);
     }
 
-    const houses = await houseService.benchmark(count, iterations);
+    const houses = await houseService.benchmark(iterations);
 
     if (shouldReturnBody) {
       return {

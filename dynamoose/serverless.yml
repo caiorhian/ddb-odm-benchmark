@@ -19,7 +19,6 @@ custom:
       heapMax: 4g
       docker: true
       # seed: true
-      help: true
     stages:
       - dev
       - local
